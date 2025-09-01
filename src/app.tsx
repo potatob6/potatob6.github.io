@@ -231,7 +231,7 @@ const InnerApp = (props: ParentProps) => {
 
     if (!appInitialized()) {
       setAppInitialized(true);
-      openAboutDialog();
+      // openAboutDialog();
     }
   });
 

@@ -21,7 +21,6 @@ export const Indicator = () => {
   };
 
   return (
-    // JSX渲染时调用getIndicatorStyle，读取signal并建立依赖
     <div style={getIndicatorStyle()}></div>
   );
 };

@@ -1,16 +1,27 @@
 import { sessionService } from "@/libs/services/session-service";
 
 export const Indicator = () => {
-  const status = sessionService.clientServiceStatus();
-  let style: string = '';
-  if (status === 'connected') {
-    style = 'background-color: #45BA16; border-radius: 50%; margin-top: 1rem; box-shadow: 0 0 0.2rem #45BA16; width: calc(var(--spacing) * 3); height: calc(var(--spacing) * 3)'
-  } else if(status === 'disconnected') {
-    style = 'background-color: red; border-radius: 50%; margin-top: 1rem; box-shadow: 0 0 0.2rem red; width: calc(var(--spacing) * 3); height: calc(var(--spacing) * 3)'
-  } else {
-    style = 'background-color: #F5A824; border-radius: 50%; margin-top: 1rem; box-shadow: 0 0 0.2rem #F5A824; width: calc(var(--spacing) * 3); height: calc(var(--spacing) * 3)'
-  }
+  const getIndicatorStyle = () => {
+    const status = sessionService.clientServiceStatus(); 
+    const baseStyle = `
+      border-radius: 50%; 
+      transition: all 0.3s ease;
+      margin: 1rem; 
+      width: calc(var(--spacing) * 3); 
+      height: calc(var(--spacing) * 3);
+    `;
+
+    if (status === 'connected') {
+      return `${baseStyle} background-color: #45BA16; box-shadow: 0 0 0.2rem #45BA16;`;
+    } else if (status === 'disconnected') {
+      return `${baseStyle} background-color: red; box-shadow: 0 0 0.2rem red;`;
+    } else {
+      return `${baseStyle} background-color: #F5A824; box-shadow: 0 0 0.2rem #F5A824;`;
+    }
+  };
+
   return (
-    <div style={style}></div>
-  )
-}
+    // JSX渲染时调用getIndicatorStyle，读取signal并建立依赖
+    <div style={getIndicatorStyle()}></div>
+  );
+};

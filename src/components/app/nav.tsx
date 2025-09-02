@@ -12,9 +12,6 @@ import {
   IconMonitor,
   IconSettings,
 } from "../icons";
-import {
-  Indicator,
-} from "@/components/app/indicator";
 import { t } from "@/i18n";
 import {
   Tooltip,
@@ -90,18 +87,6 @@ export default function Nav(props: ComponentProps<"nav">) {
         </TooltipTrigger>
         <TooltipContent>
           {t("common.nav.settings")}
-        </TooltipContent>
-      </Tooltip>
-      <Tooltip placement={placement()}>
-        <TooltipTrigger
-          as={A}
-          href=""
-          class={cn(linkClasses)}
-        >
-          <Indicator />
-        </TooltipTrigger>
-        <TooltipContent>
-          {t("common.nav.status")}
         </TooltipContent>
       </Tooltip>
     </nav>

@@ -4,6 +4,7 @@ import {
 } from "@solidjs/router";
 import {
   createEffect,
+  createMemo,
   ErrorBoundary,
   onCleanup,
   onMount,
@@ -62,6 +63,17 @@ import {
   IconPermContactCalendar,
   IconResetWrench,
 } from "./components/icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Indicator,
+} from "@/components/app/indicator";
+import { linkClasses } from "@/components/app/nav";
+import { cn } from "@/libs/cn";
+import { A, useLocation } from "@solidjs/router";
 import { getInitials } from "./libs/utils/name";
 import { Button } from "./components/ui/button";
 import { t, isDictLoaded } from "./i18n";
@@ -271,6 +283,9 @@ const InnerApp = (props: ParentProps) => {
   }
   const { roomStatus } = useWebRTC();
   const isMobile = createIsMobile();
+  const placement = createMemo(() =>
+    isMobile() ? "bottom" : "right",
+  );
 
   return (
     <>
@@ -294,6 +309,18 @@ const InnerApp = (props: ParentProps) => {
           >
             <Nav class="items-center gap-2 p-2 md:flex-col md:gap-4" />
             <div class="flex-1"></div>
+            <Tooltip placement={placement()}>
+              <TooltipTrigger
+                as={A}
+                href=""
+                class={cn(linkClasses)}
+              >
+                <Indicator />
+              </TooltipTrigger>
+              <TooltipContent>
+                {t("common.nav.status")}
+              </TooltipContent>
+            </Tooltip>
             <HoverCard
               gutter={6}
               placement={

@@ -478,7 +478,8 @@
       "settings": "设置",
       "join_room": "加入房间",
       "leave_room": "离开房间",
-      "share_link": "分享链接"
+      "share_link": "分享链接",
+      "status": "连接状态"
     },
     "timeago": {
       "just_now": "刚刚"

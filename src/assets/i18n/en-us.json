@@ -475,7 +475,8 @@
       "settings": "Settings",
       "join_room": "Join Room",
       "leave_room": "Leave Room",
-      "share_link": "Share Link"
+      "share_link": "Share Link",
+      "status": "Connection Status"
     },
     "timeago": {
       "just_now": "Just Now"

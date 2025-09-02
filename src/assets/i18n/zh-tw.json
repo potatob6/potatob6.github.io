@@ -478,7 +478,8 @@
       "settings": "設定",
       "join_room": "加入房間",
       "leave_room": "離開房間",
-      "share_link": "分享連結"
+      "share_link": "分享連結",
+      "status": "連線狀態"
     },
     "timeago": {
       "just_now": "剛剛"

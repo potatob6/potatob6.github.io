@@ -218,6 +218,7 @@
   },
   "video": {
     "title": "Screen Sharing",
+    "you": "You",
     "device": {
       "screen": "Screen",
       "camera": "Camera"

@@ -218,6 +218,7 @@
   },
   "video": {
     "title": "屏幕共享",
+    "you": "你",
     "device": {
       "screen": "屏幕",
       "camera": "摄像头"

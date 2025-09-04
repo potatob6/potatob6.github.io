@@ -348,7 +348,7 @@ export default function Video() {
               <VideoDisplay
                 class="absolute inset-0"
                 stream={localStream()}
-                name={`${clientProfile.name} (You)`}
+                name={`${clientProfile.name} (${t("video.you")})`}
                 avatar={clientProfile.avatar ?? undefined}
                 muted={true}
               >

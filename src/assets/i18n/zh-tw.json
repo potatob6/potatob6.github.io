@@ -252,6 +252,9 @@
     "version": "版本"
   },
   "common": {
+    "room_no_password_proteced": "[警告] 此房間未設定密碼保護",
+    "incorrect_password": "[警告] 密碼錯誤",
+    "password_required": "[警告] 此房間需提供密碼",
     "scan_qrcode_dialog": {
       "title": "分享房間資訊",
       "description": "掃描二維碼以連接到此房間",

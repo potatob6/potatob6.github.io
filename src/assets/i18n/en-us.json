@@ -252,6 +252,9 @@
     "version": "Version"
   },
   "common": {
+    "room_no_password_proteced": "[Warning] the room is not password protected",
+    "incorrect_password": "[Error] incorrect password",
+    "password_required": "[Error] this room requires a password",
     "theme_toggle": {
       "light": "Light Mode",
       "dark": "Dark Mode",

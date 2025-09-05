@@ -22,6 +22,7 @@ import {
   catchErrorAsync,
   catchErrorSync,
 } from "@/libs/catch";
+import { t } from "@/i18n";
 
 export class WebSocketClientService
   implements ClientService
@@ -271,7 +272,7 @@ export class WebSocketClientService
             if (passwordHash) {
               if (!this.password) {
                 return reject(
-                  new Error("password required"),
+                  new Error(`${t("common.password_required")}`),
                 );
               }
 
@@ -283,14 +284,14 @@ export class WebSocketClientService
               if (!passwordMatch) {
                 return reject(
                   new Error(
-                    "[WebSocketClientService] incorrect password",
+                    `${t("common.incorrect_password")}`,
                   ),
                 );
               }
             } else {
               this.password = null;
               toast.warning(
-                "[WebSocketClientService] the room is not password protected",
+                `${t("common.room_no_password_proteced")}`,
               );
             }
             socket.send(

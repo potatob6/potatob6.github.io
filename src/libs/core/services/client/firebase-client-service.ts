@@ -33,6 +33,7 @@ import {
   MultiEventEmitter,
 } from "@/libs/utils/event-emitter";
 import { toast } from "solid-sonner";
+import { t } from "@/i18n";
 
 export interface UpdateClientOptions {
   name?: string;
@@ -169,7 +170,7 @@ export class FirebaseClientService
       }
     } else {
       this.password = null;
-      toast.warning("the room is not password protected");
+      toast.warning(`${t("common.room_no_password_proteced")}`);
     }
 
     const clientsRef = child(this.roomRef, "/clients");

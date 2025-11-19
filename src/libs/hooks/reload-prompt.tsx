@@ -47,6 +47,10 @@ export const createReloadPrompt = () => {
             },
             cancel: {
               label: t("common.action.close"),
+              onClick: () => {
+                setPrompted(false);
+                updateServiceWorker(true);
+              },
             },
             duration: Infinity,
           },

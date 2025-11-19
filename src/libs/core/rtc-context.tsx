@@ -53,7 +53,6 @@ async function getClientService(
       ).then((m) => new m.FirebaseClientService(options));
     case "WEBSOCKET":
       options.websocketUrl =
-        appOptions.websocketUrl ??
         import.meta.env.VITE_WEBSOCKET_URL;
       return import(
         "./services/client/ws-client-service"

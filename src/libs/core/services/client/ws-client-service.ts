@@ -66,7 +66,7 @@ export class WebSocketClientService
     this.password = password;
     this.client = { ...client, createdAt: Date.now() };
     this.websocketUrl =
-      websocketUrl ?? import.meta.env.VITE_WEBSOCKET_URL;
+      import.meta.env.VITE_WEBSOCKET_URL;
   }
 
   private setStatus(

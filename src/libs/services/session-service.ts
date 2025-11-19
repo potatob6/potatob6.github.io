@@ -22,7 +22,7 @@ import {
 } from "@/libs/core/message";
 import { v4 } from "uuid";
 import { getIceServers } from "@/libs/core/store";
-import { appOptions } from "@/options";
+import { appOptions, getDefaultAppOptions } from "@/options";
 import { catchErrorAsync, catchErrorSync } from "../catch";
 
 class SessionService {
@@ -171,7 +171,7 @@ class SessionService {
       polite,
       iceServers: await this.iceServers,
       relayOnly:
-        appOptions.servers.turns.length > 0 &&
+        getDefaultAppOptions().servers.turns.length > 0 &&
         appOptions.relayOnly,
     });
 
@@ -325,7 +325,7 @@ class SessionService {
 let sessionService: SessionService;
 
 createEffect(() => {
-  if (sessionService && appOptions.servers.turns) {
+  if (sessionService && getDefaultAppOptions().servers.turns) {
     sessionService.updateIceServers();
   }
 });

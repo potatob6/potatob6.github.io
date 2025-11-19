@@ -102,7 +102,7 @@ export default function Settings() {
   });
 
   const turnServersValue = createMemo(() => {
-    return stringifyTurnServers(appOptions.servers.turns);
+    return stringifyTurnServers(getDefaultAppOptions().servers.turns);
   });
 
   const [websocketChecking, setWebsocketChecking] =
@@ -416,20 +416,20 @@ export default function Settings() {
               ref={(ref) => {
                 createEffect(() => {
                   textareaAutoResize(ref, () =>
-                    appOptions.servers.stuns.toString(),
+                    getDefaultAppOptions().servers.stuns.toString(),
                   );
                 });
               }}
               value={
-                appOptions.servers.stuns.join("\n") +
-                (appOptions.servers.stuns ? "\n" : "")
+                getDefaultAppOptions().servers.stuns.join("\n") +
+                (getDefaultAppOptions().servers.stuns ? "\n" : "")
               }
               onChange={(ev) => {
                 const value = ev.currentTarget.value
                   .trim()
                   .split("\n")
                   .filter((v) => v.trim() !== "");
-                setAppOptions("servers", "stuns", value);
+                setAppOptions("servers", "stuns", getDefaultAppOptions().servers.stuns);
               }}
             />
             <p class="muted">
@@ -442,7 +442,7 @@ export default function Settings() {
                 when={
                   import.meta.env.VITE_STUN_SERVERS &&
                   import.meta.env.VITE_STUN_SERVERS !==
-                  appOptions.servers.stuns.join(",")
+                  getDefaultAppOptions().servers.stuns.join(",")
                 }
               >
                 <Button
@@ -460,8 +460,8 @@ export default function Settings() {
               </Show>
               <Show
                 when={
-                  appOptions.servers.stuns.length > 0 &&
-                  appOptions.servers.stuns
+                  getDefaultAppOptions().servers.stuns.length > 0 &&
+                  getDefaultAppOptions().servers.stuns
                 }
               >
                 {(stuns) => {
@@ -555,7 +555,7 @@ export default function Settings() {
                   textareaAutoResize(
                     ref,
                     () =>
-                      appOptions.servers.turns?.toString() ??
+                      getDefaultAppOptions().servers.turns?.toString() ??
                       "",
                   );
                 });
@@ -576,7 +576,7 @@ export default function Settings() {
                   setAppOptions(
                     "servers",
                     "turns",
-                    reconcile(turns),
+                    getDefaultAppOptions().servers.turns,
                   );
                 } catch (error) {
                   if (error instanceof Error) {
@@ -615,8 +615,8 @@ export default function Settings() {
               </Show>
               <Show
                 when={
-                  appOptions.servers.turns.length > 0 &&
-                  appOptions.servers.turns
+                  getDefaultAppOptions().servers.turns.length > 0 &&
+                  getDefaultAppOptions().servers.turns
                 }
               >
                 {(turns) => {
@@ -959,7 +959,7 @@ export default function Settings() {
                   class="flex items-center justify-between"
                   checked={appOptions.relayOnly}
                   disabled={
-                    appOptions.servers.turns.length === 0
+                    getDefaultAppOptions().servers.turns.length === 0
                   }
                   onChange={(isChecked) =>
                     setAppOptions("relayOnly", isChecked)

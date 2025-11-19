@@ -32,6 +32,7 @@ import {
   appInitialized,
   appOptions,
   backgroundImage,
+  getDefaultAppOptions,
   localeOptionsMap,
   localFromLanguage,
   setAppInitialized,
@@ -156,7 +157,7 @@ const InnerApp = (props: ParentProps) => {
       ) as TurnServerOptions[];
 
       if (!appOptions.servers.turns) {
-        setAppOptions("servers", "turns", []);
+        setAppOptions("servers", "turns", getDefaultAppOptions().servers.turns);
       }
 
       setAppOptions(

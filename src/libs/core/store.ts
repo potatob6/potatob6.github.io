@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker";
 import { Client } from "./type";
 import { v4 } from "uuid";
 import { generateHMAC } from "./utils/encrypt/hmac";
-import { appOptions, TurnServerOptions } from "@/options";
+import { appOptions, getDefaultAppOptions, TurnServerOptions } from "@/options";
 import { catchErrorAsync } from "../catch";
 
 export interface ClientProfile extends Client {
@@ -83,14 +83,14 @@ export async function parseTurnServer(
 
 export async function getIceServers() {
   const servers: RTCIceServer[] = [];
-  for (const stun of appOptions.servers.stuns) {
+  for (const stun of getDefaultAppOptions().servers.stuns) {
     if (stun.trim().length === 0) continue;
     servers.push({
       urls: stun,
     });
   }
-  if (appOptions.servers.turns)
-    for (const turn of appOptions.servers.turns) {
+  if (getDefaultAppOptions().servers.turns)
+    for (const turn of getDefaultAppOptions().servers.turns) {
       const [error, server] = await catchErrorAsync(
         parseTurnServer(turn),
       );

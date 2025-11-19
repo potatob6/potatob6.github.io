@@ -207,7 +207,7 @@ createEffect(async () => {
 createEffect(() => {
   if (
     import.meta.env.VITE_STUN_SERVERS &&
-    appOptions.servers.stuns.length === 0
+    getDefaultAppOptions().servers.stuns.length === 0
   ) {
     const servers = import.meta.env.VITE_STUN_SERVERS.split(
       ",",
@@ -219,7 +219,7 @@ createEffect(() => {
 createEffect(() => {
   if (
     import.meta.env.VITE_TURN_SERVERS &&
-    appOptions.servers.turns.length === 0
+    getDefaultAppOptions().servers.turns.length === 0
   ) {
     const serverValue =
       import.meta.env.VITE_TURN_SERVERS.split(",").join(

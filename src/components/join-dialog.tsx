@@ -215,37 +215,37 @@ export const joinUrl = createMemo(() => {
   if (clientProfile.password)
     url.searchParams.append("pwd", clientProfile.password);
 
-  if (appOptions.shareServersWithOthers) {
-    // compare if user's appOptions is different from defaultAppOptions
-    const defaultAppOptions = getDefaultAppOptions();
-    if (
-      appOptions.servers.stuns.length !==
-        defaultAppOptions.servers.stuns.length &&
-      appOptions.servers.stuns.some(
-        (server, index) =>
-          server !== defaultAppOptions.servers.stuns[index],
-      )
-    ) {
-      url.searchParams.append(
-        "stun",
-        JSON.stringify(appOptions.servers.stuns),
-      );
-    }
-    if (
-      appOptions.servers.turns.length !==
-        defaultAppOptions.servers.turns.length &&
-      appOptions.servers.turns.some(
-        (server, index) =>
-          server.url !==
-          defaultAppOptions.servers.turns[index].url,
-      )
-    ) {
-      url.searchParams.append(
-        "turn",
-        JSON.stringify(appOptions.servers.turns),
-      );
-    }
-  }
+  // if (appOptions.shareServersWithOthers) {
+  //   // compare if user's appOptions is different from defaultAppOptions
+  //   const defaultAppOptions = getDefaultAppOptions();
+  //   if (
+  //     getDefaultAppOptions().servers.stuns.length !==
+  //       defaultAppOptions.servers.stuns.length &&
+  //     getDefaultAppOptions().servers.stuns.some(
+  //       (server, index) =>
+  //         server !== defaultAppOptions.servers.stuns[index],
+  //     )
+  //   ) {
+  //     url.searchParams.append(
+  //       "stun",
+  //       JSON.stringify(getDefaultAppOptions().servers.stuns),
+  //     );
+  //   }
+  //   if (
+  //     appOptions.servers.turns.length !==
+  //       defaultAppOptions.servers.turns.length &&
+  //     appOptions.servers.turns.some(
+  //       (server, index) =>
+  //         server.url !==
+  //         defaultAppOptions.servers.turns[index].url,
+  //     )
+  //   ) {
+  //     url.searchParams.append(
+  //       "turn",
+  //       JSON.stringify(appOptions.servers.turns),
+  //     );
+  //   }
+  // }
   url.searchParams.append("join", "true");
   return url.toString();
 });

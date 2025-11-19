@@ -759,7 +759,7 @@ export default function Settings() {
                 onInput={(ev) => {
                   setAppOptions(
                     "websocketUrl",
-                    ev.currentTarget.value,
+                    defaultWebsocketUrl
                   );
                 }}
               />

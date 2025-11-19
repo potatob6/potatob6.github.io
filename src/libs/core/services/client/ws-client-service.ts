@@ -23,6 +23,7 @@ import {
   catchErrorSync,
 } from "@/libs/catch";
 import { t } from "@/i18n";
+import { defaultWebsocketUrl } from "@/options";
 
 export class WebSocketClientService
   implements ClientService
@@ -66,7 +67,7 @@ export class WebSocketClientService
     this.password = password;
     this.client = { ...client, createdAt: Date.now() };
     this.websocketUrl =
-      import.meta.env.VITE_WEBSOCKET_URL;
+      defaultWebsocketUrl;
   }
 
   private setStatus(

@@ -38,7 +38,7 @@ import {
   StorageMessage,
 } from "./message";
 import { sessionService } from "../services/session-service";
-import { appOptions } from "@/options";
+import { appOptions, defaultWebsocketUrl } from "@/options";
 import { toast } from "solid-sonner";
 import { ChunkMetaData, FileMetaData } from "../cache";
 import { catchErrorAsync } from "../catch";
@@ -53,7 +53,7 @@ async function getClientService(
       ).then((m) => new m.FirebaseClientService(options));
     case "WEBSOCKET":
       options.websocketUrl =
-        import.meta.env.VITE_WEBSOCKET_URL;
+        defaultWebsocketUrl;
       return import(
         "./services/client/ws-client-service"
       ).then((m) => new m.WebSocketClientService(options));

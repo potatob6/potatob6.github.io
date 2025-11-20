@@ -25,7 +25,7 @@ const createAboutDialog = () => {
               <p>{t("common.about_dialog.version")}</p>
               <p>{__APP_VERSION__}</p>
               <p>{t("common.about_dialog.author")}</p>
-              <p>
+              <div style="display: flex; flex-direction: column">
                 <a
                   class="text-blue-500 hover:text-blue-600 hover:underline"
                   target="_blank"
@@ -33,7 +33,14 @@ const createAboutDialog = () => {
                 >
                   {__APP_AUTHOR_NAME__}
                 </a>
-              </p>
+                <a
+                  class="text-blue-500 hover:text-blue-600 hover:underline"
+                  target="_blank"
+                  href="https://github.com/potatob6"
+                >
+                  potatob6
+                </a>
+              </div>
               <p>{t("common.about_dialog.license")}</p>
               <p>{__APP_LICENSE__}</p>
             </div>
@@ -41,7 +48,7 @@ const createAboutDialog = () => {
               <a
                 class="flex flex-col items-center justify-center gap-2"
                 target="_blank"
-                href="https://github.com/99percentpeople/weblink"
+                href="https://github.com/potatob6/potatob6.github.io"
               >
                 <IconGitHub class="size-16" />
                 <p class="text-sm">

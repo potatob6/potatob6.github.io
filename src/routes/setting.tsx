@@ -406,7 +406,7 @@ export default function Settings() {
               )}
             </p>
           </div>
-          <label class="flex flex-col gap-2">
+          {/* <label class="flex flex-col gap-2">
             <Label>
               {t("setting.connection.stun_servers.title")}
             </Label>
@@ -543,8 +543,8 @@ export default function Settings() {
                 }}
               </Show>
             </div>
-          </label>
-          <label class="flex flex-col gap-2">
+          </label> */}
+          {/* <label class="flex flex-col gap-2">
             <Label>
               {t("setting.connection.turn_servers.title")}
             </Label>
@@ -716,7 +716,7 @@ export default function Settings() {
                 }}
               </Show>
             </div>
-          </label>
+          </label> */}
           <div class="flex flex-col gap-2">
             <Switch
               class="flex items-center justify-between"
@@ -743,7 +743,7 @@ export default function Settings() {
               )}
             </p>
           </div>
-          <Show
+          {/* <Show
             when={
               import.meta.env.VITE_BACKEND === "WEBSOCKET"
             }
@@ -798,7 +798,7 @@ export default function Settings() {
                 </Button>
               </div>
             </label>
-          </Show>
+          </Show> */}
 
           <h3 id="sender" class="h3">
             {t("setting.sender.title")}

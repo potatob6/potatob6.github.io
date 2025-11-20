@@ -154,7 +154,7 @@ export const getDefaultAppOptions = () => {
     wakeLock: true,
     compressionLevel: 6,
     locale: localFromLanguage(navigator.language),
-    shareServersWithOthers: true,
+    shareServersWithOthers: false,
     backgroundImageOpacity: 0.5,
     automaticDownload: false,
     websocketUrl: defaultWebsocketUrl,

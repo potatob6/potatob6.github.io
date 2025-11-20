@@ -717,7 +717,7 @@ export default function Settings() {
               </Show>
             </div>
           </label> */}
-          <div class="flex flex-col gap-2">
+          {/* <div class="flex flex-col gap-2">
             <Switch
               class="flex items-center justify-between"
               checked={appOptions.shareServersWithOthers}
@@ -742,7 +742,7 @@ export default function Settings() {
                 "setting.connection.share_servers_with_others.description",
               )}
             </p>
-          </div>
+          </div> */}
           {/* <Show
             when={
               import.meta.env.VITE_BACKEND === "WEBSOCKET"
@@ -931,6 +931,88 @@ export default function Settings() {
           </div>
 
           {/* <MediaSetting /> */}
+                    <h3 id="stream" class="h4">
+            {t(
+              "setting.advanced_settings.stream.title",
+            )}
+          </h3>
+          <label class="flex flex-col gap-2">
+            <Slider
+              minValue={128 * 1024}
+              maxValue={150 * 1024 * 1024}
+              step={128 * 1024}
+              defaultValue={[
+                appOptions.videoMaxBitrate,
+              ]}
+              getValueLabel={({ values }) =>
+                `${formatBitSize(values[0], 0)}ps`
+              }
+              class="gap-2"
+              onChange={(value) => {
+                setAppOptions(
+                  "videoMaxBitrate",
+                  value[0],
+                );
+              }}
+            >
+              <div class="flex w-full justify-between">
+                <SliderLabel>
+                  {t(
+                    "setting.advanced_settings.stream.video_max_bitrate.title",
+                  )}
+                </SliderLabel>
+                <SliderValueLabel />
+              </div>
+              <SliderTrack>
+                <SliderFill />
+                <SliderThumb />
+                <SliderThumb />
+              </SliderTrack>
+            </Slider>
+            <p class="muted">
+              {t(
+                "setting.advanced_settings.stream.video_max_bitrate.description",
+              )}
+            </p>
+          </label>
+          <label class="flex flex-col gap-2">
+            <Label>
+              {t(
+                "setting.advanced_settings.stream.degradation_preference.title",
+              )}
+            </Label>
+            <Select
+              value={appOptions.degradationPreference}
+              onChange={(value) => {
+                setAppOptions(
+                  "degradationPreference",
+                  value ?? "balanced",
+                );
+              }}
+              options={[
+                "balanced",
+                "maintain-framerate",
+                "maintain-resolution",
+              ]}
+              itemComponent={(props) => (
+                <SelectItem item={props.item}>
+                  {props.item.rawValue}
+                </SelectItem>
+              )}
+            >
+              <SelectTrigger>
+                <SelectValue<RTCDegradationPreference>>
+                  {(state) => state.selectedOption()}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent />
+            </Select>
+            <p class="muted">
+              {t(
+                "setting.advanced_settings.stream.degradation_preference.description",
+              )}
+            </p>
+          </label>
           <Collapsible>
             <CollapsibleTrigger
               as={(props: ComponentProps<"div">) => (
@@ -1170,88 +1252,6 @@ export default function Settings() {
               </label>
             </CollapsibleContent>
           </Collapsible>
-          <h4 id="stream" class="h4">
-            {t(
-              "setting.advanced_settings.stream.title",
-            )}
-          </h4>
-          <label class="flex flex-col gap-2">
-            <Slider
-              minValue={128 * 1024}
-              maxValue={150 * 1024 * 1024}
-              step={128 * 1024}
-              defaultValue={[
-                appOptions.videoMaxBitrate,
-              ]}
-              getValueLabel={({ values }) =>
-                `${formatBitSize(values[0], 0)}ps`
-              }
-              class="gap-2"
-              onChange={(value) => {
-                setAppOptions(
-                  "videoMaxBitrate",
-                  value[0],
-                );
-              }}
-            >
-              <div class="flex w-full justify-between">
-                <SliderLabel>
-                  {t(
-                    "setting.advanced_settings.stream.video_max_bitrate.title",
-                  )}
-                </SliderLabel>
-                <SliderValueLabel />
-              </div>
-              <SliderTrack>
-                <SliderFill />
-                <SliderThumb />
-                <SliderThumb />
-              </SliderTrack>
-            </Slider>
-            <p class="muted">
-              {t(
-                "setting.advanced_settings.stream.video_max_bitrate.description",
-              )}
-            </p>
-          </label>
-          <label class="flex flex-col gap-2">
-            <Label>
-              {t(
-                "setting.advanced_settings.stream.degradation_preference.title",
-              )}
-            </Label>
-            <Select
-              value={appOptions.degradationPreference}
-              onChange={(value) => {
-                setAppOptions(
-                  "degradationPreference",
-                  value ?? "balanced",
-                );
-              }}
-              options={[
-                "balanced",
-                "maintain-framerate",
-                "maintain-resolution",
-              ]}
-              itemComponent={(props) => (
-                <SelectItem item={props.item}>
-                  {props.item.rawValue}
-                </SelectItem>
-              )}
-            >
-              <SelectTrigger>
-                <SelectValue<RTCDegradationPreference>>
-                  {(state) => state.selectedOption()}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent />
-            </Select>
-            <p class="muted">
-              {t(
-                "setting.advanced_settings.stream.degradation_preference.description",
-              )}
-            </p>
-          </label>
           <Separator />
           <div class="flex flex-col gap-2">
             <Button onClick={() => open()} class="gap-1">

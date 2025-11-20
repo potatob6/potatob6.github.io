@@ -931,7 +931,7 @@ export default function Settings() {
           </div>
 
           {/* <MediaSetting /> */}
-                    <h3 id="stream" class="h4">
+          <h3 id="stream" class="h3">
             {t(
               "setting.advanced_settings.stream.title",
             )}

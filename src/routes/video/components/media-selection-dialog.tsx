@@ -638,7 +638,7 @@ export const createMediaSelectionDialog = () => {
             value="user"
             class="flex flex-col gap-2"
           >
-            <div class="flex gap-2">
+            <div class="flex flex-col gap-2">
               <Show
                 when={
                   cameras().length !== 0 &&

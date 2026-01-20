@@ -61,6 +61,103 @@ export class PeerSession {
   private applyPreferredCodecPreferences(
     pc: RTCPeerConnection,
   ) {
+    // ========== srflx优先的核心逻辑（调整为host > srflx > prflx > relay） ==========
+    // 存储收集到的原始ICE候选
+    let collectedCandidates: RTCIceCandidate[] = [];
+    // 标记是否已经替换过onicecandidate事件（防止重复替换）
+    let isIceCandidateHooked = false;
+
+    // 解析ICE候选字符串获取类型（host/srflx/prflx/relay等）
+    const parseCandidateType = (candidateStr: string): string => {
+      const parts = candidateStr.split(' ');
+      for (let i = 0; i < parts.length; i++) {
+        if (parts[i] === 'typ') {
+          return parts[i + 1] || '';
+        }
+      }
+      return '';
+    };
+
+    // 定义各类型候选的typePreference（核心优先级值）
+    const TYPE_PREFERENCE = {
+      host: 126,   // 最高优先级
+      srflx: 110,  // 次之
+      prflx: 100,  // 再次之
+      relay: 0     // 最低优先级
+    };
+
+    // 计算候选的最终优先级（遵循WebRTC标准公式）
+    const calculatePriority = (type: string, candidate: RTCIceCandidate): number => {
+      // 提取componentId（候选的组件ID，通常是1或2）
+      const componentIdMatch = candidate.candidate.match(/\b(\d+)\s+typ\b/);
+      const componentId = componentIdMatch ? Number(componentIdMatch[1]) : 1;
+      // localPreference默认值为0（不影响类型排序）
+      const localPreference = 0;
+      
+      // 获取对应类型的typePreference
+      const typePref = TYPE_PREFERENCE[type as keyof typeof TYPE_PREFERENCE] || 0;
+      
+      // 标准优先级计算公式
+      return (typePref << 24) + (localPreference << 8) + (256 - componentId);
+    };
+
+    // 修改候选优先级并重新添加
+    const addModifiedCandidates = () => {
+      collectedCandidates.forEach(candidate => {
+        if (!candidate.candidate) return;
+
+        // 解析候选类型
+        const candidateType = parseCandidateType(candidate.candidate);
+        
+        // 1. 先创建基础候选配置（符合TypeScript类型定义）
+        const candidateConfig: RTCIceCandidateInit = {
+          candidate: candidate.candidate,
+          sdpMid: candidate.sdpMid,
+          sdpMLineIndex: candidate.sdpMLineIndex,
+          usernameFragment: candidate.usernameFragment,
+        };
+
+        // 2. 计算并添加优先级（类型断言绕过TypeScript检查）
+        const modifiedCandidateConfig = {
+          ...candidateConfig,
+          priority: calculatePriority(candidateType, candidate),
+        } as RTCIceCandidateInit & { priority: number };
+
+        // 3. 创建修改优先级后的候选对象
+        const modifiedCandidate = new RTCIceCandidate(modifiedCandidateConfig);
+
+        // 重新添加修改后的候选
+        pc.addIceCandidate(modifiedCandidate)
+          .catch(err => console.warn('[PeerSession] 添加修改后的ICE候选失败:', err));
+      });
+
+      // 清空已处理的候选
+      collectedCandidates = [];
+    };
+
+    // 拦截并替换onicecandidate事件
+    if (!isIceCandidateHooked) {
+      const originalOnIceCandidate = pc.onicecandidate;
+      pc.onicecandidate = (event) => {
+        // 执行原始的onicecandidate逻辑（保留原有功能）
+        if (originalOnIceCandidate) {
+          originalOnIceCandidate.call(pc, event);
+        }
+
+        if (!event.candidate) {
+          // 所有候选收集完成，批量添加修改后的候选
+          addModifiedCandidates();
+          return;
+        }
+
+        // 收集原始候选，等待批量处理
+        collectedCandidates.push(event.candidate);
+      };
+      isIceCandidateHooked = true;
+    }
+    // ========== srflx优先逻辑结束 ==========
+
+    // 原有编解码器优先级设置逻辑（保持不变）
     if (typeof RTCRtpSender === "undefined") return;
     if (!("getCapabilities" in RTCRtpSender)) return;
 

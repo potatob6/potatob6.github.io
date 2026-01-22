@@ -263,7 +263,7 @@ export class PeerSession {
       async (ev: RTCPeerConnectionIceEvent) => {
         if (!ev.candidate) return;
 
-        if (ev.candidate.type === 'prflx') {
+        if (ev.candidate.type === 'prflx' || (ev.candidate.candidate && ev.candidate.candidate.includes('typ prflx'))) {
           console.log('[PeerSession] 跳过 prflx 候选:', ev.candidate.candidate);
           return; // 直接返回，不发送给远端
         }

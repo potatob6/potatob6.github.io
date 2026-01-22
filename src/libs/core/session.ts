@@ -82,7 +82,7 @@ export class PeerSession {
     const TYPE_PREFERENCE = {
       host: 126,   // 最高优先级
       srflx: 110,  // 次之
-      prflx: 50,  // 再次之
+      prflx: 100,  // 再次之
       relay: 0     // 最低优先级
     };
 

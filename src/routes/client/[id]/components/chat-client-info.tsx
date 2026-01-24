@@ -75,9 +75,9 @@ const clientInfoDialog = () => {
           localCandidate?.candidateType ||
           remoteCandidate?.candidateType
         ) {
-          candidateType =
-            localCandidate?.candidateType ??
-            remoteCandidate?.candidateType;
+          candidateType = '(' + 
+            (localCandidate?.candidateType ?? '') + 'L,' + 
+            (remoteCandidate?.candidateType ?? '') + 'R)';
         }
       }
     });
